@@ -5,7 +5,7 @@ volumes:
 services:
   controller:
     build:
-      context: .
+      context: MeshController
     privileged: true
     tty: true
     restart: always

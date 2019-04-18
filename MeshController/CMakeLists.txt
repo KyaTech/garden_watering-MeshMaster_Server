@@ -27,7 +27,8 @@ endif ()
 # Project construction ...
 
 # source files ...
-add_executable(${PROJECT_NAME} source/main.cpp
+add_executable(${PROJECT_NAME}
+        source/main.cpp
         source/includes/func.cpp
         source/includes/radio.cpp
         source/includes/payloads.cpp
@@ -36,16 +37,16 @@ add_executable(${PROJECT_NAME} source/main.cpp
         source/includes/foundation/basic_controller.cpp)
 
 # headers search paths ...
-set(CPPRESTSDK_INCLUDE_DIR "./libs/cpprestsdk/Release/include")
+set(CPPRESTSDK_INCLUDE_DIR "/usr/local/include")
 set(MICROSERVICE_INCLUDE_DIR "source/includes/foundation/include")
 message(MICROSERVICE " ${MICROSERVICE_INCLUDE_DIR}")
-set(SOURCE_INCLUDES "./source/includes")
+set(SOURCE_INCLUDES "source/includes")
 
 set(HEADER_SEARCH_PATHS ${CPPRESTSDK_INCLUDE_DIR} ${MICROSERVICE_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${OPENSSL_INCLUDE_DIR} ${SOURCE_INCLUDES})
 
 # library search paths ...
 set(OPENSSL_LIBS "${OPENSSL_LIBRARIES}")
-set(CPPRESTSDK_LIBRARY "${PROJECT_SOURCE_DIR}/libs/cpprestsdk/Build_release/Binaries/libcpprest.a")
+set(CPPRESTSDK_LIBRARY "/usr/local/lib/libcpprest.a")
 
 set(LIBRARIES_SEARCH_PATHS ${CPPRESTSDK_LIBRARY} ${OPENSSL_LIBS} ${Boost_LIBRARIES})
 
@@ -57,6 +58,5 @@ message(SOURCE_INCLUDES " ${SOURCE_INCLUDES}")
 
 include_directories(${HEADER_SEARCH_PATHS})
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES_SEARCH_PATHS})
-target_link_libraries(${PROJECT_NAME} ${RF24_LIB})
 
 

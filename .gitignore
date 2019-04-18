@@ -132,5 +132,5 @@ CTestTestfile.cmake
 # Compiled Static libraries
 *.lai
 
-#Libs
-/libs/
+#Build
+/MeshController/build/

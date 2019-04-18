@@ -76,7 +76,6 @@ void MeshMasterRestServer::handleGet(http_request message) {
                             response_payload_struct response_mesh{};
                             if (path.size() > 3 && !path[3].empty()) {
                                 string indexString = path[3];
-                                int index = std::stoi(indexString);
                                 response_mesh = _radio->waitForAnswer(
                                         _radio->sendRequest("Moisture", indexString, node));
                             } else {
@@ -94,7 +93,6 @@ void MeshMasterRestServer::handleGet(http_request message) {
                             response_payload_struct response_mesh{};
                             if (path.size() > 3 && !path[3].empty()) {
                                 string indexString = path[3];
-                                int index = std::stoi(indexString);
                                 response_mesh = _radio->waitForAnswer(_radio->sendRequest("State", indexString, node));
 
                                 json::value response;

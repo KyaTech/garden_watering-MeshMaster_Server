@@ -16,7 +16,7 @@ COPY . /usr/src/MeshController
 #COPY libs/libcpprest.a /usr/src/MeshController/libs/cpprestsdk/Build_release/Binaries/libcpprest.a
 
 # Install rf24libs
-RUN cd /usr/src/MeshController && ./build_depencies.sh
+RUN cd /usr/src/MeshController && chmod +x build_depencies.sh && ./build_depencies.sh
 
 RUN mkdir /var/run/sshd \
     && echo 'root:balena' | chpasswd \

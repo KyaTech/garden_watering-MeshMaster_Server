@@ -3,18 +3,19 @@ networks: {}
 volumes:
   resin-data: {}
 services:
-  controller:
+  meshcontroller:
     build:
-      context: MeshController
+      context: ./meshcontroller
     privileged: true
     tty: true
-    restart: always
-    network_mode: host
-    volumes:
-      - 'resin-data:/data'
-    labels:
-      io.resin.features.kernel-modules: '1'
-      io.resin.features.firmware: '1'
-      io.resin.features.dbus: '1'
-      io.resin.features.supervisor-api: '1'
-      io.resin.features.resin-api: '1'
+    ports:
+      - "8080:8080"
+      - "2222:22"
+  systemcontroller:
+    build:
+      context: ./systemcontroller
+    privileged: true
+    depends_on:
+      - meshcontroller
+    ports:
+      - "2223:22"

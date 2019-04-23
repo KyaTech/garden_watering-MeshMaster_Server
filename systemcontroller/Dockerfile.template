@@ -1,4 +1,4 @@
-FROM balenalib/raspberrypi3-debian:stretch
+FROM balenalib/%%RESIN_MACHINE_NAME%%-openjdk:latest
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get -q update && apt-get install -yq --no-install-recommends \

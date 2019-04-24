@@ -9,8 +9,9 @@ public interface MeshController {
 	 * @param index the index of the valve on the node
 	 * @return the state of the valve
 	 * @throws InvalidNodeException if the node is invalid
+	 * @throws InvalidIndexException if the index is invalid
 	 */
-	ValveState requestState(int node, int index) throws InvalidNodeException;
+	ValveState requestState(int node, int index) throws InvalidNodeException, InvalidIndexException;
 
 
 	/**

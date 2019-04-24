@@ -7,21 +7,20 @@ RUN apt-get -q update && apt-get install -yq --no-install-recommends \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/
 
+RUN mkdir /var/run/sshd \
+    && echo 'root:balena' | chpasswd \
+    && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 # Switch into our apps working directory
 WORKDIR /usr/src/MeshController
 
 # Copy all the app source into docker context
 COPY . /usr/src/MeshController
-#COPY libs/libcpprest.a /usr/src/MeshController/libs/cpprestsdk/Build_release/Binaries/libcpprest.a
 
 # Install rf24libs
 RUN cd /usr/src/MeshController && chmod +x build_depencies.sh && ./build_depencies.sh
 
-RUN mkdir /var/run/sshd \
-    && echo 'root:balena' | chpasswd \
-    && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-    && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 # Build our binary
 RUN mkdir -p build && cd /usr/src/MeshController/build && cmake .. && make

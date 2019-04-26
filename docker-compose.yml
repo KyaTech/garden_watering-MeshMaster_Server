@@ -1,6 +1,7 @@
 version: '2.1'
 networks: {}
 volumes:
+  keys: {}
   resin-data: {}
 services:
   meshcontroller:
@@ -11,6 +12,8 @@ services:
     ports:
       - "8080:8080"
       - "2222:22"
+    volumes:
+      - "keys:/root/.ssh/"
   systemcontroller:
     build:
       context: ./systemcontroller
@@ -19,3 +22,5 @@ services:
       - meshcontroller
     ports:
       - "2223:22"
+    volumes:
+      - "keys:/root/.ssh/"

@@ -5,7 +5,7 @@ public enum ValveState {
 	OFF,
 	;
 
-	public static ValveState fromString(String state) {
+	public static ValveState from(String state) {
 		if (state.equals("ON")) {
 			return ON;
 		} else if (state.equals("OFF")) {

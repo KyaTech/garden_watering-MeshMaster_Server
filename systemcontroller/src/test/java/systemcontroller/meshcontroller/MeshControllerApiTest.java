@@ -34,63 +34,8 @@ public class MeshControllerApiTest {
 	private MeshControllerApi meshControllerApi;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		meshControllerApi = new MeshControllerApi();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-
-	}
-
-	@Test
-	public void test_requestState_invalidNode() throws IOException {
-		PowerMockito.mockStatic(Request.class);
-
-		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
-		response.setEntity(new StringEntity("{\n" +
-			"  \"error\": {\n" +
-			"    \"type\":\"InvalidNode\", \n" +
-			"    \"internalMessage\": \"The given node is not valid #1300\",\n" +
-			"    \"request_id\": 1300\n" +
-			"  }\n" +
-			"}"));
-		when(Request.makeRequest(Mockito.anyString())).thenReturn(response);
-
-		try {
-			meshControllerApi.requestState(1, 0);
-			assertThat(false).withFailMessage("This should throw an InvalidNodeException").isTrue();
-		} catch (InvalidNodeException e){
-			assertThat(true).isTrue();
-		}
-
-		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest("http://192.168.176.6:8080/api/v1/nodes/1/valves/0");
-	}
-
-	@Test
-	public void test_requestState_invalidIndex() throws IOException {
-		PowerMockito.mockStatic(Request.class);
-
-		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
-		response.setEntity(new StringEntity("{\n" +
-			"  \"error\": {\n" +
-			"    \"type\":\"InvalidIndex\", \n" +
-			"    \"internalMessage\": \"The given node is not valid #1300\",\n" +
-			"    \"request_id\": 1300\n" +
-			"  }\n" +
-			"}"));
-		when(Request.makeRequest(Mockito.anyString())).thenReturn(response);
-
-		try {
-			meshControllerApi.requestState(1, 0);
-			assertThat(false).withFailMessage("This should throw an InvalidIndexException").isTrue();
-		} catch (InvalidIndexException e){
-			assertThat(true).isTrue();
-		}
-
-		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest("http://192.168.176.6:8080/api/v1/nodes/1/valves/0");
 	}
 
 	@Test
@@ -100,14 +45,116 @@ public class MeshControllerApiTest {
 		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
 		response.setEntity(new StringEntity("{\n" +
 			"  \"request_id\": 100,\n" +
-			"  \"state\": \"OFF\"\n" +
+			"  \"state\": \"ON\"\n" +
 			"}"));
-		when(Request.makeRequest(Mockito.anyString())).thenReturn(response);
+		when(Request.makeRequest(Mockito.anyString(), eq(Request.MethodType.GET))).thenReturn(response);
 
-		assertThat(meshControllerApi.requestState(1, 0)).isEqualTo(ValveState.OFF);
+		assertThat(meshControllerApi.requestState(1, 0)).isEqualTo(ValveState.ON);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest("http://192.168.176.6:8080/api/v1/nodes/1/valves/0");
+		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/valves/0"), eq(Request.MethodType.GET));
+	}
+
+	@Test
+	public void test_requestSensor_withoutIndex() throws IOException {
+		PowerMockito.mockStatic(Request.class);
+
+		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
+		response.setEntity(new StringEntity("{\n" +
+			"  \"request_id\": 100,\n" +
+			"  \"value\": 24\n" +
+			"}"));
+		when(Request.makeRequest(Mockito.anyString(), eq(Request.MethodType.GET))).thenReturn(response);
+
+		assertThat(meshControllerApi.requestSensor(1)).isEqualTo(24);
+
+		PowerMockito.verifyStatic(Request.class);
+		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/sensors"), eq(Request.MethodType.GET));
+	}
+
+	@Test
+	public void test_requestSensor() throws IOException {
+		PowerMockito.mockStatic(Request.class);
+
+		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
+		response.setEntity(new StringEntity("{\n" +
+			"  \"request_id\": 100,\n" +
+			"  \"value\": 24\n" +
+			"}"));
+		when(Request.makeRequest(Mockito.anyString(), eq(Request.MethodType.GET))).thenReturn(response);
+
+		assertThat(meshControllerApi.requestSensor(1, 0)).isEqualTo(24);
+
+		PowerMockito.verifyStatic(Request.class);
+		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/sensors/0"), eq(Request.MethodType.GET));
+	}
+
+	@Test
+	public void test_requestBattery() throws IOException {
+		PowerMockito.mockStatic(Request.class);
+
+		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
+		response.setEntity(new StringEntity("{\n" +
+			"  \"request_id\": 100,\n" +
+			"  \"battery\": 89\n" +
+			"}"));
+		when(Request.makeRequest(Mockito.anyString(), eq(Request.MethodType.GET))).thenReturn(response);
+
+		assertThat(meshControllerApi.requestBattery(1)).isEqualTo(89);
+
+		PowerMockito.verifyStatic(Request.class);
+		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/battery"), eq(Request.MethodType.GET));
+	}
+
+	@Test
+	public void test_changeValveState() throws IOException {
+		PowerMockito.mockStatic(Request.class);
+
+		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
+		response.setEntity(new StringEntity("{\n" +
+			"  \"request_id\": 100,\n" +
+			"  \"message\": \"OK\"\n" +
+			"}"));
+		when(Request.makeRequest(Mockito.anyString(), eq(Request.MethodType.POST))).thenReturn(response);
+
+		assertThat(meshControllerApi.changeValveState(1, 0, ValveState.ON)).isEqualTo(CommandStatus.OK);
+
+		PowerMockito.verifyStatic(Request.class);
+		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/valves/0/ON"), eq(Request.MethodType.POST));
+	}
+
+	@Test
+	public void test_turnOnValve() throws IOException {
+		PowerMockito.mockStatic(Request.class);
+
+		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
+		response.setEntity(new StringEntity("{\n" +
+			"  \"request_id\": 100,\n" +
+			"  \"message\": \"OK\"\n" +
+			"}"));
+		when(Request.makeRequest(Mockito.anyString(), eq(Request.MethodType.POST))).thenReturn(response);
+
+		assertThat(meshControllerApi.turnOnValve(1, 0)).isEqualTo(CommandStatus.OK);
+
+		PowerMockito.verifyStatic(Request.class);
+		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/valves/0/ON"), eq(Request.MethodType.POST));
+	}
+
+	@Test
+	public void test_turnOffValve() throws IOException {
+		PowerMockito.mockStatic(Request.class);
+
+		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
+		response.setEntity(new StringEntity("{\n" +
+			"  \"request_id\": 100,\n" +
+			"  \"message\": \"OK\"\n" +
+			"}"));
+		when(Request.makeRequest(Mockito.anyString(), eq(Request.MethodType.POST))).thenReturn(response);
+
+		assertThat(meshControllerApi.turnOffValve(1, 0)).isEqualTo(CommandStatus.OK);
+
+		PowerMockito.verifyStatic(Request.class);
+		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/valves/0/OFF"), eq(Request.MethodType.POST));
 	}
 
 	@Test
@@ -176,5 +223,28 @@ public class MeshControllerApiTest {
 
 
 		assertThat(uri).contains(path).startsWith("http://").contains("/api/v1/");
+	}
+
+	@Test
+	public void test_makeApiRequest() throws IOException {
+		String template = "/nodes/%d/tests/%d";
+		String searchedJson = "value";
+
+		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
+		response.setEntity(new StringEntity("{\n" +
+			"  \"request_id\": 100,\n" +
+			"  \"value\": 24.78\n" +
+			"}"));
+
+		PowerMockito.mockStatic(Request.class);
+		when(Request.makeRequest(Mockito.anyString(), eq(Request.MethodType.GET))).thenReturn(response);
+
+		JsonNode jsonNode = meshControllerApi.makeApiRequest(searchedJson, template, 1, 0);
+
+		assertThat(jsonNode.asDouble()).isEqualTo(24.78);
+
+		PowerMockito.verifyStatic(Request.class);
+		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/tests/0"), eq(Request.MethodType.GET));
+
 	}
 }

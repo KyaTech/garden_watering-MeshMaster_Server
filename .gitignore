@@ -133,4 +133,4 @@ CTestTestfile.cmake
 *.lai
 
 #Build
-/MeshController/build/
+/meshcontroller/build/

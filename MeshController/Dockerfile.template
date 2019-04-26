@@ -13,22 +13,22 @@ RUN mkdir /var/run/sshd \
     && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 # Switch into our apps working directory
-WORKDIR /usr/src/MeshController
+WORKDIR /usr/src/meshcontroller
 
 # Copy all the app source into docker context
-COPY . /usr/src/MeshController
+COPY . /usr/src/meshcontroller
 
 # Install rf24libs
-RUN cd /usr/src/MeshController && chmod +x build_depencies.sh && ./build_depencies.sh
+RUN cd /usr/src/meshcontroller && chmod +x build_depencies.sh && ./build_depencies.sh
 
 
 # Build our binary
-RUN mkdir -p build && cd /usr/src/MeshController/build && cmake .. && make
+RUN mkdir -p build && cd /usr/src/meshcontroller/build && cmake .. && make
 
 #switch on systemd init system in container
 ENV INITSYSTEM on
 
 # Run our binary on container startup
 CMD service ssh start\
-# && cd /usr/src/MeshController/build && ./mesh_master\
+# && cd /usr/src/meshcontroller/build && ./mesh_master\
 && bash

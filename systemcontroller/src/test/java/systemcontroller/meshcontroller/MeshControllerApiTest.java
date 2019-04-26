@@ -24,6 +24,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import systemcontroller.config.Config;
 import systemcontroller.meshcontroller.http.Request;
 
 @RunWith(PowerMockRunner.class)
@@ -52,7 +53,7 @@ public class MeshControllerApiTest {
 		assertThat(meshControllerApi.requestState(1, 0)).isEqualTo(ValveState.ON);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/valves/0"), eq(Request.MethodType.GET));
+		Request.makeRequest(eq(String.format("%s/nodes/1/valves/0",buildApiUri())), eq(Request.MethodType.GET));
 	}
 
 	@Test
@@ -69,7 +70,7 @@ public class MeshControllerApiTest {
 		assertThat(meshControllerApi.requestSensor(1)).isEqualTo(24);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/sensors"), eq(Request.MethodType.GET));
+		Request.makeRequest(eq(String.format("%s/nodes/1/sensors",buildApiUri())), eq(Request.MethodType.GET));
 	}
 
 	@Test
@@ -86,7 +87,7 @@ public class MeshControllerApiTest {
 		assertThat(meshControllerApi.requestSensor(1, 0)).isEqualTo(24);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/sensors/0"), eq(Request.MethodType.GET));
+		Request.makeRequest(eq(String.format("%s/nodes/1/sensors/0",buildApiUri())), eq(Request.MethodType.GET));
 	}
 
 	@Test
@@ -103,7 +104,7 @@ public class MeshControllerApiTest {
 		assertThat(meshControllerApi.requestBattery(1)).isEqualTo(89);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/battery"), eq(Request.MethodType.GET));
+		Request.makeRequest(eq(String.format("%s/nodes/1/battery",buildApiUri())), eq(Request.MethodType.GET));
 	}
 
 	@Test
@@ -120,7 +121,7 @@ public class MeshControllerApiTest {
 		assertThat(meshControllerApi.changeValveState(1, 0, ValveState.ON)).isEqualTo(CommandStatus.OK);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/valves/0/ON"), eq(Request.MethodType.POST));
+		Request.makeRequest(eq(String.format("%s/nodes/1/valves/0/ON",buildApiUri())), eq(Request.MethodType.POST));
 	}
 
 	@Test
@@ -137,7 +138,7 @@ public class MeshControllerApiTest {
 		assertThat(meshControllerApi.turnOnValve(1, 0)).isEqualTo(CommandStatus.OK);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/valves/0/ON"), eq(Request.MethodType.POST));
+		Request.makeRequest(eq(String.format("%s/nodes/1/valves/0/ON",buildApiUri())), eq(Request.MethodType.POST));
 	}
 
 	@Test
@@ -154,7 +155,7 @@ public class MeshControllerApiTest {
 		assertThat(meshControllerApi.turnOffValve(1, 0)).isEqualTo(CommandStatus.OK);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/valves/0/OFF"), eq(Request.MethodType.POST));
+		Request.makeRequest(eq(String.format("%s/nodes/1/valves/0/OFF",buildApiUri())), eq(Request.MethodType.POST));
 	}
 
 	@Test
@@ -244,7 +245,11 @@ public class MeshControllerApiTest {
 		assertThat(jsonNode.asDouble()).isEqualTo(24.78);
 
 		PowerMockito.verifyStatic(Request.class);
-		Request.makeRequest(eq("http://192.168.176.6:8080/api/v1/nodes/1/tests/0"), eq(Request.MethodType.GET));
+		Request.makeRequest(eq(String.format("%s/nodes/1/tests/0",buildApiUri())), eq(Request.MethodType.GET));
 
+	}
+
+	private String buildApiUri() {
+		return String.format("http://%s:%d%s", Config.getApiHost(), Config.getApiPort(), Config.getApiPrefix());
 	}
 }

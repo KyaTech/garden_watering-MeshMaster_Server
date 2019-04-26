@@ -1,0 +1,8 @@
+version: 1.0
+
+#MeshController
+meshcontroller:
+  api:
+    host: testhost.com
+    port: 8080
+    prefix: /api/v1

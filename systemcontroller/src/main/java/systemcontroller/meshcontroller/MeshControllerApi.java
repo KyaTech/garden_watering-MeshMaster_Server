@@ -14,13 +14,12 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import systemcontroller.config.Config;
 import systemcontroller.meshcontroller.http.Request;
 
 public class MeshControllerApi implements MeshController {
 
-	private static final Logger log = LoggerFactory.getLogger(Request.class);
-	private static final String host = "192.168.176.6:8080";
-	private static final String api = "/api/v1";
+	private static final Logger log = LoggerFactory.getLogger(MeshControllerApi.class);
 
 
 	@Override
@@ -86,9 +85,11 @@ public class MeshControllerApi implements MeshController {
 	static String makeRequestUri(String endpointPath) throws URISyntaxException {
 		URI uri = new URIBuilder()
 			.setScheme("http")
-			.setHost(host)
-			.setPath(String.format("%s%s", api, endpointPath))
+			.setHost(Config.getApiHost())
+			.setPort(Config.getApiPort())
+			.setPath(String.format("%s%s", Config.getApiPrefix(), endpointPath))
 			.build();
+
 		log.debug(uri.toString());
 		return uri.toString();
 	}

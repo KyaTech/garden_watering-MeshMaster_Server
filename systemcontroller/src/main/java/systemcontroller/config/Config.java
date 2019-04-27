@@ -44,6 +44,11 @@ public class Config {
 		}
 	}
 
+	public static long getTimerPeriod() {
+		loadConfig();
+		return config.root.get("update-timer").get("period").asLong();
+	}
+
 	private boolean hasChanged() {
 		return !this.configFile.equals(staticConfigFile);
 	}
@@ -64,7 +69,7 @@ public class Config {
 	}
 
 	// For tests only
-	static void changeConfigFile(String pathToConfigFile) {
+	public static void changeConfigFile(String pathToConfigFile) {
 		if (Files.exists(Paths.get(pathToConfigFile))) {
 			staticConfigFile = Paths.get(pathToConfigFile).toString();
 		} else {

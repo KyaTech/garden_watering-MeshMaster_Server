@@ -60,6 +60,7 @@ size_t ResponsePayload::sizeOfPayload() {
 void ResponsePayload::_buildPayload() {
     _payload.request_id = request_id;
     strcpy(_payload.value, value.c_str());
+    _payload.additional_information = additionalInformation;
 }
 
 //RegistrationPayload

@@ -17,7 +17,22 @@ void printRequest(request_payload_struct &request) {
 }
 
 void printResponse(response_payload_struct &response, bool send) {
-    printf("%sResponse: #%lu value \"%s\"\n", send ? "Send " : "", response.request_id, response.value);
+    if (response.additional_information == INVALIDINDEX) {
+        printf("%sResponse: #%lu value \"%s\" and %s\n", send ? "Send " : "", response.request_id, response.value,
+               "InvalidIndex");
+
+    } else if (response.additional_information == INVALIDCOMMAND) {
+        printf("%sResponse: #%lu value \"%s\" and %s\n", send ? "Send " : "", response.request_id, response.value,
+               "InvalidCommand");
+
+    }
+    if (response.additional_information == INVALIDREQUEST) {
+        printf("%sResponse: #%lu value \"%s\" and %s\n", send ? "Send " : "", response.request_id, response.value,
+               "InvalidRequest");
+
+    } else {
+        printf("%sResponse: #%lu value \"%s\"\n", send ? "Send " : "", response.request_id, response.value);
+    }
 }
 
 void printResponse(response_payload_struct &response) {

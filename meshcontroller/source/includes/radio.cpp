@@ -143,12 +143,11 @@ unsigned long Radio::sendRadioPayload(RadioPayload &payload) noexcept(false) {
             _last_failed_request_id = payload.request_id;
 
             if (taskIsRunning && payload.getType() != PayloadType::RESPONSE) this->updateAndLog();
-            throw PayloadNotSendableException("Could not write the given payload. The node may be not available",
-                                              payload.request_id);
+            throw PayloadNotSendableException(payload.request_id);
         }
     } else {
         if (taskIsRunning && payload.getType() != PayloadType::RESPONSE) this->updateAndLog();
-        throw PayloadNotSendableException("The given node is not valid", payload.request_id);
+        throw InvalidNodeException(payload.request_id);
     }
 
     if (taskIsRunning && payload.getType() != PayloadType::RESPONSE) this->updateAndLog();
@@ -283,6 +282,13 @@ response_payload_struct Radio::waitForAnswer(unsigned long searched_request_id) 
     unsigned long startTime = millis();
     while ((millis() - startTime) < timout) {
         if (_last_response.request_id == searched_request_id) {
+            if (string(_last_response.value) == "ER") {
+                if (_last_response.additional_information == AdditionalInformation::INVALIDINDEX) {
+                    throw InvalidIndexException(searched_request_id);
+                }
+            }
+
+
             return _last_response;
         }
     }

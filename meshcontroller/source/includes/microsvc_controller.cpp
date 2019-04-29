@@ -112,24 +112,22 @@ void MeshMasterRestServer::handleGet(http_request message) {
                             }
                         }
 
+
+                    } catch (InvalidNodeException &e) {
+                        e.printException();
+                        message.reply(status_codes::BadRequest, e.asJson());
+                        return;
+                    } catch (InvalidIndexException &e) {
+                        e.printException();
+                        message.reply(status_codes::BadRequest, e.asJson());
+                        return;
                     } catch (ResponseNotFoundException &e) {
                         e.printException();
-
-                        json::value response;
-                        response["error"] = json::value();
-                        response["error"]["request_id"] = json::value::number((uint32_t) e.getRequestID());
-                        response["error"]["internalMessage"] = json::value::string(e.giveMessage());
-                        message.reply(status_codes::BadRequest, response);
+                        message.reply(status_codes::BadRequest, e.asJson());
                         return;
-
                     } catch (PayloadNotSendableException &e) {
                         e.printException();
-
-                        json::value response;
-                        response["error"] = json::value();
-                        response["error"]["request_id"] = json::value::number((uint32_t) e.getRequestID());
-                        response["error"]["internalMessage"] = json::value::string(e.giveMessage());
-                        message.reply(status_codes::BadRequest, response);
+                        message.reply(status_codes::BadRequest, e.asJson());
                         return;
 
                     }
@@ -224,23 +222,23 @@ void MeshMasterRestServer::handlePost(http_request message) {
                             return;
                         }
                     }
+                } catch (InvalidNodeException &e) {
+                    cout << "Test" << std::endl;
+
+                    e.printException();
+                    message.reply(status_codes::BadRequest, e.asJson());
+                    return;
+                } catch (InvalidIndexException &e) {
+                    e.printException();
+                    message.reply(status_codes::BadRequest, e.asJson());
+                    return;
                 } catch (ResponseNotFoundException &e) {
                     e.printException();
-
-                    json::value response;
-                    response["error"] = json::value();
-                    response["error"]["request_id"] = json::value::number((uint32_t) e.getRequestID());
-                    response["error"]["internalMessage"] = json::value::string(e.giveMessage());
-                    message.reply(status_codes::BadRequest, response);
+                    message.reply(status_codes::BadRequest, e.asJson());
                     return;
                 } catch (PayloadNotSendableException &e) {
                     e.printException();
-
-                    json::value response;
-                    response["error"] = json::value();
-                    response["error"]["request_id"] = json::value::number((uint32_t) e.getRequestID());
-                    response["error"]["internalMessage"] = json::value::string(e.giveMessage());
-                    message.reply(status_codes::BadRequest, response);
+                    message.reply(status_codes::BadRequest, e.asJson());
                     return;
                 }
             }
@@ -351,7 +349,7 @@ void MeshMasterRestServer::registrationCallback(registration_payload_struct payl
                 printf("Received response status code: %u\n", response.status_code());
                 return;
             } catch (std::exception &e) {
-                printf("Could not send the registration payload.\n");
+                printf("Could not send the registration payload to the callback.\n");
             }
 
         });

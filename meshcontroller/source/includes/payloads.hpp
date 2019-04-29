@@ -31,12 +31,21 @@ enum PayloadType {
     REGISTRATION
 };
 
+enum AdditionalInformation {
+    UNDEFINED = 0,
+    INVALIDINDEX = 1,
+    INVALIDREQUEST = 2,
+    INVALIDCOMMAND = 3
+};
+
+
 struct radio_payload_struct {
     unsigned long request_id;
 };
 
 struct response_payload_struct : public radio_payload_struct {
-    char value[MAX_CHAR_SIZE];
+    char value[SHORT_CHAR_SIZE];
+    unsigned char additional_information;
 };
 
 
@@ -120,6 +129,7 @@ private:
 
 public:
     string value;
+    unsigned char additionalInformation{};
 
     void printPayload(bool send) override;
 

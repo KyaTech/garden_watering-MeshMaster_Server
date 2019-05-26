@@ -1,0 +1,12 @@
+config:
+  version: 1.0
+
+  updatetimer:
+    # milliseconds
+    period: 300000
+
+  meshcontroller:
+    api:
+      host: 192.168.176.6
+      port: 8080
+      prefix: api/v1

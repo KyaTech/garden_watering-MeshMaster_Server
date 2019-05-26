@@ -1,0 +1,42 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.meshmasterserver.system'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.postgresql:postgresql'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.5.RELEASE'
+
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.5.RELEASE'
+	testImplementation "junit:junit:4.12"
+	testImplementation "org.assertj:assertj-core:3.10.0"
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.27.0'
+	testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.2'
+	testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.2'
+
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.8'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.8'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.8'
+
+}
+
+wrapper {
+	gradleVersion = "5.4"
+}

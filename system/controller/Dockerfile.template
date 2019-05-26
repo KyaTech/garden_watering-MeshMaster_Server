@@ -1,5 +1,5 @@
 
-FROM balenalib/%%BALENA_MACHINE_NAME%%-ubuntu-openjdk:11-jdk
+FROM balenalib/%%BALENA_MACHINE_NAME%%-ubuntu-openjdk:10-jdk
 SHELL ["/bin/bash", "-c"]
 
 

@@ -3,10 +3,11 @@ networks: {}
 volumes:
   keys: {}
   resin-data: {}
+  config: {}
 services:
-  meshcontroller:
+  mesh.controller:
     build:
-      context: ./meshcontroller
+      context: ./mesh/controller
     privileged: true
     tty: true
     ports:
@@ -14,13 +15,14 @@ services:
       - "2222:22"
     volumes:
       - "keys:/root/.ssh/"
-  systemcontroller:
+  system.controller:
     build:
-      context: ./systemcontroller
+      context: ./system/controller
     privileged: true
     depends_on:
-      - meshcontroller
+      - mesh.controller
     ports:
       - "2223:22"
     volumes:
       - "keys:/root/.ssh/"
+      - "config:/usr/src/config/"

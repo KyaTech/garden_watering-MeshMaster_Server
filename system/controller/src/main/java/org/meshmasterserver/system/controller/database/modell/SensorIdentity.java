@@ -12,10 +12,15 @@ public class SensorIdentity implements Serializable {
 	@JoinColumn(name = "node_id")
 	private Node node;
 
-	private int index;
+	@Column
+	private int index = 0;
 
 	public SensorIdentity() {
 
+	}
+
+	public SensorIdentity(Node node) {
+		this.node = node;
 	}
 
 	public SensorIdentity(Node node, int index) {

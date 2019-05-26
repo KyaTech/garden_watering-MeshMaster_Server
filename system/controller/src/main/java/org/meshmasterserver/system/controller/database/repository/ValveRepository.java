@@ -11,5 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ValveRepository extends JpaRepository<Valve, ValveIdentity> {
 	List<Valve> findAll();
+
 	List<Valve> findByIdentityNode(Node node);
+
+	Valve findByIdentityNodeAndIdentityIndex(Node identity_node, int identity_index);
 }

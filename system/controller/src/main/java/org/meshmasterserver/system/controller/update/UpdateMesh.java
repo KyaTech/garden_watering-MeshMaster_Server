@@ -61,7 +61,7 @@ public class UpdateMesh implements UpdateStep {
 		log.debug("Updating sensors");
 
 		for (Sensor sensor : sensors) {
-			double value = meshController.requestSensor(node.getId(), sensor.getIdentity().getIndex());
+			double value = meshController.requestSensor(node.getMeshNodeId(), sensor.getIdentity().getIndex());
 
 			saveSensorValue(sensor,value);
 		}

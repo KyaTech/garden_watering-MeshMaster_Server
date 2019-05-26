@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
 public interface SensorRepository extends JpaRepository<Sensor, SensorIdentity> {
 	List<Sensor> findAll();
 	List<Sensor> findByIdentityNode(Node identity_node);
+	Sensor findByIdentityNodeAndIdentityIndex(Node identity_node, int identity_index);
 }

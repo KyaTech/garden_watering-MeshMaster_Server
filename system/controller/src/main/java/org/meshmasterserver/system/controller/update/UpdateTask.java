@@ -3,10 +3,6 @@ package org.meshmasterserver.system.controller.update;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.LogFactory;
-import org.meshmasterserver.system.controller.config.UpdateTimerConfig;
-import org.meshmasterserver.system.controller.meshcontroller.MeshController;
-import org.meshmasterserver.system.controller.meshcontroller.MeshControllerApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

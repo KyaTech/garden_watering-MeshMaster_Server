@@ -12,7 +12,7 @@ void Radio::beginMesh(uint8_t nodeID) {
         printf("Creating mesh ...\n");
     }
     _mesh.begin();
-    _rf24.setPALevel(RF24_PA_MAX);
+    _rf24.setPALevel(RF24_PA_HIGH);
     _rf24.setDataRate(RF24_1MBPS);
     _rf24.setCRCLength(RF24_CRC_16);
 }

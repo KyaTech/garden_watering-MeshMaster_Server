@@ -24,7 +24,7 @@ public class RequestTest {
 	private HttpClient client;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		request = new Request();
 		request.setClient(client);
 	}

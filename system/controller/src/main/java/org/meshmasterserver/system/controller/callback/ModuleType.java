@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum ModuleType {
 	Sensor("sensor"), Valve("valve");
 
-	private String string;
+	private final String string;
 	ModuleType(String string) {
 		this.string = string;
 	}
@@ -26,5 +26,5 @@ public enum ModuleType {
 			}
 		}
 		throw new IllegalArgumentException();
-	};
+	}
 }

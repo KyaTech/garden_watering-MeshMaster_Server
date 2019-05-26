@@ -37,7 +37,7 @@ public class RegistrationEndpointTest {
 	private ValveRepository valveRepository;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		registrationEndpoint = new RegistrationEndpoint(nodeRepository, sensorRepository, valveRepository);
 	}
 

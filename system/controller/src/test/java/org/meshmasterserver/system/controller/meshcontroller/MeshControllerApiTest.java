@@ -243,14 +243,6 @@ public class MeshControllerApiTest {
 		verify(request).makeRequest(eq(String.format("%s/nodes/1/tests/0", buildApiUri())), eq(Request.MethodType.GET));
 	}
 
-	@Test
-	public void test_couldNotConnect() {
-
-
-
-
-	}
-
 	private String buildApiUri() {
 		return String.format("http://%s:%d/%s", config.getMeshcontroller().getApi().getHost(), config.getMeshcontroller().getApi().getPort(), config.getMeshcontroller().getApi().getPrefix());
 	}

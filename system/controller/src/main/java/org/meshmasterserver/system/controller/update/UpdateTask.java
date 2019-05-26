@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UpdateTask implements Runnable{
 
-	private static Logger log = LoggerFactory.getLogger(UpdateTask.class);
+	private static final Logger log = LoggerFactory.getLogger(UpdateTask.class);
 
-	private List<UpdateStep> steps = new ArrayList<>();
+	private final List<UpdateStep> steps = new ArrayList<>();
 
 	@Autowired
 	public UpdateTask(UpdateMesh mesh) {

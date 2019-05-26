@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,13 +45,8 @@ public class UpdateMeshTest {
 	private SensorValueRepository sensorValueRepository;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		updateMesh = new UpdateMesh(meshController, sensorRepository, valveRepository, sensorValueRepository, nodeRepository);
-	}
-
-	@Test
-	public void run() {
-
 	}
 
 	@Test

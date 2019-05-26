@@ -1,7 +1,6 @@
 package org.meshmasterserver.system.controller.meshcontroller.http;
 
 import java.io.IOException;
-import java.net.ConnectException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -46,7 +45,7 @@ public class Request {
 
 	public enum MethodType {
 		GET,
-		POST;
+		POST
 	}
 
 }

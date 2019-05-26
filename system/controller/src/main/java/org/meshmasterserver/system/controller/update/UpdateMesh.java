@@ -7,7 +7,6 @@ import java.util.List;
 import org.meshmasterserver.system.controller.database.modell.Node;
 import org.meshmasterserver.system.controller.database.modell.Sensor;
 import org.meshmasterserver.system.controller.database.modell.SensorValue;
-import org.meshmasterserver.system.controller.database.modell.Valve;
 import org.meshmasterserver.system.controller.database.repository.NodeRepository;
 import org.meshmasterserver.system.controller.database.repository.SensorRepository;
 import org.meshmasterserver.system.controller.database.repository.SensorValueRepository;
@@ -79,7 +78,7 @@ public class UpdateMesh implements UpdateStep {
 			sensorValueRepository.save(sensorValue);
 		}
 
-	};
+	}
 
 
 }

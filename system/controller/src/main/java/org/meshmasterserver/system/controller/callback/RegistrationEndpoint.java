@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RegistrationEndpoint {
-	private Logger log = LoggerFactory.getLogger(RegistrationEndpoint.class);
+	private final Logger log = LoggerFactory.getLogger(RegistrationEndpoint.class);
 	private final NodeRepository nodeRepository;
 	private final SensorRepository sensorRepository;
 	private final ValveRepository valveRepository;

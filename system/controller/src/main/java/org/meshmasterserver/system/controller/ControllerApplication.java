@@ -1,9 +1,6 @@
 package org.meshmasterserver.system.controller;
 
 import org.meshmasterserver.system.controller.config.Config;
-import org.meshmasterserver.system.controller.database.repository.SensorRepository;
-import org.meshmasterserver.system.controller.database.repository.SensorValueRepository;
-import org.meshmasterserver.system.controller.database.repository.ValveRepository;
 import org.meshmasterserver.system.controller.update.UpdateTimer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -31,7 +28,7 @@ public class ControllerApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		timer.start();
 	}
 

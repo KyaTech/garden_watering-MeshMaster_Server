@@ -1,9 +1,15 @@
 package org.meshmasterserver.system.controller.meshcontroller;
 
 public enum ValveState {
-	ON,
-	OFF,
+	ON(true),
+	OFF(false),
 	;
+
+	private boolean binary;
+
+	ValveState(boolean binary) {
+		this.binary = binary;
+	}
 
 	public static ValveState from(String state) {
 		if (state.equals("ON")) {
@@ -13,5 +19,17 @@ public enum ValveState {
 		} else {
 			return null;
 		}
+	}
+
+	public static ValveState from(boolean binary) {
+		if (binary) {
+			return ON;
+		} else {
+			return OFF;
+		}
+	}
+
+	public boolean asBinary() {
+		return binary;
 	}
 }

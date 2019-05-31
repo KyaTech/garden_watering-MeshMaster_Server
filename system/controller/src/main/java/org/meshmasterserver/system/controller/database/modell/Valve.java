@@ -7,6 +7,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.meshmasterserver.system.controller.meshcontroller.ValveState;
+
 @Entity
 @Table(name = "valves")
 public class Valve implements Serializable {
@@ -20,6 +22,9 @@ public class Valve implements Serializable {
 	private String description;
 
 	private int pin;
+
+	@Column(name = "last_state")
+	private Boolean lastState = false;
 
 	public Valve() {
 
@@ -64,4 +69,20 @@ public class Valve implements Serializable {
 	public void setPin(int pin) {
 		this.pin = pin;
 	}
+
+	public ValveState getLastState() {
+		return ValveState.from(lastState);
+	}
+
+	public void setLastState(boolean lastState) {
+		this.lastState = lastState;
+	}
+
+	public void setLastState(ValveState valveState) {
+		if (valveState != null) {
+			this.lastState = valveState.asBinary();
+		}
+	}
+
+
 }

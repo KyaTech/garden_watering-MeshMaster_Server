@@ -24,7 +24,7 @@ public interface MeshController {
 	 * @return the value of the sensor as double
 	 * @throws InvalidNodeException if the node is invalid
 	 */
-	double requestSensor(int node) throws InvalidNodeException;
+	Double requestSensor(int node) throws InvalidNodeException;
 
 	/**
 	 * Requests the sensor value of the sensor of a node
@@ -35,7 +35,7 @@ public interface MeshController {
 	 * @throws InvalidNodeException  if the node is invalid
 	 * @throws InvalidIndexException if the index is invalid
 	 */
-	double requestSensor(int node, int index) throws InvalidNodeException, InvalidIndexException;
+	Double requestSensor(int node, int index) throws InvalidNodeException, InvalidIndexException;
 
 	/**
 	 * Requests the battery state of a specific node
@@ -44,7 +44,7 @@ public interface MeshController {
 	 * @return the battery value in percent
 	 * @throws InvalidNodeException if the node is invalid
 	 */
-	int requestBattery(int node) throws InvalidNodeException;
+	Integer requestBattery(int node) throws InvalidNodeException;
 
 	/**
 	 * Changes the state of a valve (ON or OFF)

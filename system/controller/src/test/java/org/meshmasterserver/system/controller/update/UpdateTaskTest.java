@@ -19,4 +19,8 @@ public class UpdateTaskTest {
 		updateTask = new UpdateTask(updateMesh);
 	}
 
+	@Test
+	public void test_coming() {
+
+	}
 }

@@ -47,33 +47,33 @@ public class MeshControllerApi implements MeshController {
 	}
 
 	@Override
-	public double requestSensor(int node) throws InvalidNodeException {
+	public Double requestSensor(int node) throws InvalidNodeException {
 		JsonNode value = makeApiRequest("value", "/nodes/%d/sensors", node);
 		if (value != null) {
 			return value.asDouble();
 		}
 
-		return INVALID_VALUE;
+		return null;
 	}
 
 	@Override
-	public double requestSensor(int node, int index) throws InvalidNodeException, InvalidIndexException {
+	public Double requestSensor(int node, int index) throws InvalidNodeException, InvalidIndexException {
 		JsonNode value = makeApiRequest("value", "/nodes/%d/sensors/%d", node, index);
 		if (value != null) {
 			return value.asDouble();
 		}
 
-		return INVALID_VALUE;
+		return null;
 	}
 
 	@Override
-	public int requestBattery(int node) throws InvalidNodeException {
+	public Integer requestBattery(int node) throws InvalidNodeException {
 		JsonNode value = makeApiRequest("battery", "/nodes/%d/battery", node);
 		if (value != null) {
 			return value.asInt();
 		}
 
-		return INVALID_VALUE;
+		return null;
 	}
 
 	@Override

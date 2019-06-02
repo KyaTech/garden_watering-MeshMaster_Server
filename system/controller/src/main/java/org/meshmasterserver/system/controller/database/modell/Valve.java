@@ -7,7 +7,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.meshmasterserver.system.controller.meshcontroller.ValveState;
+import org.meshmasterserver.system.controller.meshcontroller.api.ValveState;
 
 @Entity
 @Table(name = "valves")
@@ -84,5 +84,8 @@ public class Valve implements Serializable {
 		}
 	}
 
-
+	@Override
+	public String toString() {
+		return String.format("{identity=%s, name='%s', description='%s', pin=%d, lastState=%s}", identity, name, description, pin, lastState);
+	}
 }

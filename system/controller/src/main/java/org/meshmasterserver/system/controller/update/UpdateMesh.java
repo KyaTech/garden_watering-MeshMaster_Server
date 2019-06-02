@@ -1,6 +1,6 @@
 package org.meshmasterserver.system.controller.update;
 
-import static org.meshmasterserver.system.controller.meshcontroller.MeshControllerApi.*;
+import static org.meshmasterserver.system.controller.meshcontroller.api.MeshControllerApi.*;
 
 import java.util.List;
 
@@ -12,10 +12,9 @@ import org.meshmasterserver.system.controller.database.repository.NodeRepository
 import org.meshmasterserver.system.controller.database.repository.SensorRepository;
 import org.meshmasterserver.system.controller.database.repository.SensorValueRepository;
 import org.meshmasterserver.system.controller.database.repository.ValveRepository;
-import org.meshmasterserver.system.controller.meshcontroller.AssignmentPair;
-import org.meshmasterserver.system.controller.meshcontroller.AssignmentPairHandler;
-import org.meshmasterserver.system.controller.meshcontroller.MeshAssignmentPairHandler;
-import org.meshmasterserver.system.controller.meshcontroller.MeshController;
+import org.meshmasterserver.system.controller.meshcontroller.api.MeshController;
+import org.meshmasterserver.system.controller.meshcontroller.assignment.AssignmentPair;
+import org.meshmasterserver.system.controller.meshcontroller.assignment.AssignmentPairHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +73,7 @@ public class UpdateMesh implements UpdateStep {
 			assignmentPairHandler.add(new AssignmentPair<>(() -> meshController.requestState(node.getMeshNodeId(), valve.getIdentity().getIndex()), valveState -> {
 				valve.setLastState(valveState);
 				valveRepository.save(valve);
-				log.debug("Got new valve state for {} {}", valve.toString(), valveState);
+				log.debug("Got new valve state for {} {}", valve.getIdentity(), valveState);
 			}));
 
 		}
@@ -100,7 +99,7 @@ public class UpdateMesh implements UpdateStep {
 		if (value != INVALID_VALUE) {
 			SensorValue sensorValue = new SensorValue(sensor, value);
 
-			log.debug("Found value {}", value);
+			log.debug("Got new sensor state for {} {}", sensor.getIdentity(), value);
 
 			sensorValueRepository.save(sensorValue);
 		}

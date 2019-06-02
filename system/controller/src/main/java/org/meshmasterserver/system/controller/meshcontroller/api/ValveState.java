@@ -1,4 +1,4 @@
-package org.meshmasterserver.system.controller.meshcontroller;
+package org.meshmasterserver.system.controller.meshcontroller.api;
 
 public enum ValveState {
 	ON(true),

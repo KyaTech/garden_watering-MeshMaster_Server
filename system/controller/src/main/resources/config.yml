@@ -6,6 +6,7 @@ config:
     period: 300000
 
   meshcontroller:
+    retries: 5
     api:
       host: 192.168.176.6
       port: 8080

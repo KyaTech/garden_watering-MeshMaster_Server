@@ -1,4 +1,4 @@
-package org.meshmasterserver.system.controller.meshcontroller;
+package org.meshmasterserver.system.controller.meshcontroller.api;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -10,7 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.util.EntityUtils;
 import org.meshmasterserver.system.controller.config.Config;
-import org.meshmasterserver.system.controller.meshcontroller.http.Request;
+import org.meshmasterserver.system.controller.meshcontroller.api.http.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,13 +104,13 @@ public class MeshControllerApi implements MeshController {
 			.setPath(String.format("%s%s", config.getMeshcontroller().getApi().getPrefix(), endpointPath))
 			.build();
 
-		log.debug(uri.toString());
+		log.trace(uri.toString());
 		return uri.toString();
 	}
 
 	JsonNode entityToJson(HttpResponse response) throws IOException {
 		String msg = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-		log.debug(msg);
+		log.trace(msg);
 
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.readTree(msg);

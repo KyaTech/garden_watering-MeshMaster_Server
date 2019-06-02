@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -21,10 +20,9 @@ import org.meshmasterserver.system.controller.database.repository.SensorReposito
 import org.meshmasterserver.system.controller.database.repository.SensorValueRepository;
 import org.meshmasterserver.system.controller.database.repository.ValveRepository;
 import org.meshmasterserver.system.controller.meshcontroller.MeshAssignmentPairHandler;
-import org.meshmasterserver.system.controller.meshcontroller.MeshController;
-import org.meshmasterserver.system.controller.meshcontroller.ValveState;
+import org.meshmasterserver.system.controller.meshcontroller.api.MeshController;
+import org.meshmasterserver.system.controller.meshcontroller.api.ValveState;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

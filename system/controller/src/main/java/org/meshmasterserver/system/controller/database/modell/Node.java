@@ -81,4 +81,9 @@ public class Node implements Serializable {
 	public void setMeshNodeId(int meshNodeId) {
 		this.meshNodeId = meshNodeId;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("{id=%d, name='%s', description='%s', place='%s', meshNodeId=%d}", id, name, description, place, meshNodeId);
+	}
 }

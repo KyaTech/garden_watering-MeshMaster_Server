@@ -53,6 +53,7 @@ public class RegistrationEndpoint {
 
 		Valve valve = valveRepository.findByIdentityNodeAndIdentityIndex(node, index);
 		if (valve == null) {
+			log.info("Creating new valve");
 			valve = new Valve();
 			valve.setIdentity(new ValveIdentity(node, index));
 			valve.setPin(pin);
@@ -73,6 +74,8 @@ public class RegistrationEndpoint {
 
 		Sensor sensor = sensorRepository.findByIdentityNodeAndIdentityIndex(node, index);
 		if (sensor == null) {
+			log.info("Creating new sensor");
+
 			sensor = new Sensor();
 			sensor.setIdentity(new SensorIdentity(node,index));
 			sensor.setPin(pin);
@@ -94,6 +97,8 @@ public class RegistrationEndpoint {
 		if (nodes.size() > 0) {
 			node = nodes.get(0);
 		} else {
+			log.info("Creating a new node");
+
 			node = new Node();
 			node.setMeshNodeId(registration.getNode());
 

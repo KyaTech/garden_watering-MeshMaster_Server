@@ -1,4 +1,4 @@
-package org.meshmasterserver.system.controller.meshcontroller.http;
+package org.meshmasterserver.system.controller.meshcontroller.api.http;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package org.meshmasterserver.system.controller.meshcontroller;
+package org.meshmasterserver.system.controller.meshcontroller.api;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.meshmasterserver.system.controller.config.Config;
-import org.meshmasterserver.system.controller.meshcontroller.http.Request;
+import org.meshmasterserver.system.controller.meshcontroller.api.http.Request;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,9 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class MeshControllerApiTest {
 
 	@MockBean
@@ -45,7 +44,7 @@ public class MeshControllerApiTest {
 
 	@Test
 	public void test_requestState_stateON() throws IOException {
-		
+
 
 		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
 		response.setEntity(new StringEntity("{\n" +
@@ -63,7 +62,7 @@ public class MeshControllerApiTest {
 
 	@Test
 	public void test_requestSensor_withoutIndex() throws IOException {
-		
+
 
 		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
 		response.setEntity(new StringEntity("{\n" +
@@ -79,7 +78,7 @@ public class MeshControllerApiTest {
 
 	@Test
 	public void test_requestSensor() throws IOException {
-		
+
 
 		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
 		response.setEntity(new StringEntity("{\n" +
@@ -95,7 +94,7 @@ public class MeshControllerApiTest {
 
 	@Test
 	public void test_requestBattery() throws IOException {
-		
+
 
 		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
 		response.setEntity(new StringEntity("{\n" +
@@ -111,7 +110,7 @@ public class MeshControllerApiTest {
 
 	@Test
 	public void test_changeValveState() throws IOException {
-		
+
 
 		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
 		response.setEntity(new StringEntity("{\n" +
@@ -127,7 +126,7 @@ public class MeshControllerApiTest {
 
 	@Test
 	public void test_turnOnValve() throws IOException {
-		
+
 
 		HttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Test", 0, 0), 200, "OK"));
 		response.setEntity(new StringEntity("{\n" +
@@ -233,7 +232,7 @@ public class MeshControllerApiTest {
 			"  \"value\": 24.78\n" +
 			"}"));
 
-		
+
 		when(request.makeRequest(Mockito.anyString(), eq(Request.MethodType.GET))).thenReturn(response);
 
 		JsonNode jsonNode = meshControllerApi.makeApiRequest(searchedJson, template, 1, 0);

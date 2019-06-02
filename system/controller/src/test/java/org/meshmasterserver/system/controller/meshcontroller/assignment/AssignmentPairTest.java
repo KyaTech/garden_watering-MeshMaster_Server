@@ -1,13 +1,11 @@
-package org.meshmasterserver.system.controller.meshcontroller;
+package org.meshmasterserver.system.controller.meshcontroller.assignment;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)

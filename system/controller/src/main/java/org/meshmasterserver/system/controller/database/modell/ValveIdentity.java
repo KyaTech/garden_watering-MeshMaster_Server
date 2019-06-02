@@ -37,4 +37,9 @@ public class ValveIdentity implements Serializable {
 	public void setIndex(int index) {
 		this.index = index;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("{node=%d, index=%d}", node.getId(), index);
+	}
 }

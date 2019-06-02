@@ -1,4 +1,4 @@
-package org.meshmasterserver.system.controller.meshcontroller;
+package org.meshmasterserver.system.controller.meshcontroller.assignment;
 
 public class AssignmentPair<Type> {
 
@@ -10,8 +10,13 @@ public class AssignmentPair<Type> {
 		this.continuation = continuation;
 	}
 
-	public void run() throws Exception{
-		Type result = assignment.execute();
+	public void run() throws IllegalArgumentException {
+		Type result = null;
+		try {
+			result = assignment.execute();
+		} catch (IllegalArgumentException e) {
+			throw e;
+		}
 		continuation.run(result);
 	}
 

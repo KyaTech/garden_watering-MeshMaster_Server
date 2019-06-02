@@ -1,4 +1,4 @@
-package org.meshmasterserver.system.controller.meshcontroller;
+package org.meshmasterserver.system.controller.meshcontroller.api;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;

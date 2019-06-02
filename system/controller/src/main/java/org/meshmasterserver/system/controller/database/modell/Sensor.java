@@ -60,4 +60,9 @@ public class Sensor implements Serializable {
 	public void setPin(int pin) {
 		this.pin = pin;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("{identity=%s, name='%s', description='%s', pin=%d}", identity, name, description, pin);
+	}
 }

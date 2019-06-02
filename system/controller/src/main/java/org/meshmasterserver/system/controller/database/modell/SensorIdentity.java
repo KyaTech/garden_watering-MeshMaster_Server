@@ -43,4 +43,9 @@ public class SensorIdentity implements Serializable {
 	public void setIndex(int index) {
 		this.index = index;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("{node=%s, index=%d}", node.getId(), index);
+	}
 }
